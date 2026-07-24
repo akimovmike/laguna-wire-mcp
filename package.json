@@ -1,0 +1,16 @@
+{
+  "name": "laguna-wire-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server exposing Laguna S 2.1 (poolside `pool exec`) to Claude Code as an autonomous coding delegate. Fifth-family sibling of kimi-wire / glm-wire / qwen-wire.",
+  "type": "module",
+  "bin": { "laguna-wire-mcp": "index.mjs" },
+  "scripts": {
+    "selfcheck": "node index.mjs --selfcheck",
+    "checkbin": "node index.mjs --checkbin"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  },
+  "engines": { "node": ">=20" }
+}

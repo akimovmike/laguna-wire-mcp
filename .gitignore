@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Secrets / credentials — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+.npmrc
+.netrc
+
+# Logs & runtime output
+*.log
+npm-debug.log*
+logs/
+pids/
+*.pid
+
+# Local agent / tooling state (may contain transcripts, prompts, local paths)
+.remember/
+.serena/
+.beads/
+.claude/settings.local.json
+.claude/worktrees/
+.screenshots/
+.aider*
+.cursor/
+
+# Build / cache
+dist/
+build/
+coverage/
+.cache/
+*.tsbuildinfo
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
