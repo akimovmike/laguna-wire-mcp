@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="flowTitle flowDesc">
+  <title id="flowTitle">laguna-wire runtime flow — Claude Code to Laguna S 2.1 via guarded pool exec</title>
+  <desc id="flowDesc">Pipeline: Claude Code (MCP client) calls laguna-wire, which checks seven runtime guards, spawns pool exec in its own process group, and parses NLJSON output. pool exec runs Laguna S 2.1 (poolside) auto-approved inside the cwd. laguna-wire returns status, exit_code, run_id, and files_changed. Guards re-check every call and self-test at boot: backend binary resolves, cwd stays inside ALLOW_ROOT, model is allowlisted, prompt is non-empty and capped, timeout is clamped with a SIGKILL watchdog, output is size-capped, and only one run flies per cwd. A fail-closed self-test means a broken guard refuses to start the server.</desc>
+
+  <!-- background -->
+  <rect width="1200" height="500" rx="24" fill="#07090B"/>
+  <rect x="0.75" y="0.75" width="1198.5" height="498.5" rx="23.25" fill="none" stroke="#182023" stroke-width="1.5"/>
+
+  <!-- pipeline row: 4 boxes -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+    <!-- box 1: Claude Code -->
+    <rect x="56" y="56" width="248" height="120" rx="12" fill="#0E1315" stroke="#1F2A2D" stroke-width="1.5"/>
+    <text x="78" y="104" font-size="25" font-weight="600" fill="#E8EDEE">Claude Code</text>
+    <text x="78" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#6E7D81">MCP client</text>
+
+    <!-- box 2: laguna-wire (subject) -->
+    <rect x="336" y="56" width="344" height="120" rx="12" fill="#0E1315" stroke="#4FD1C5" stroke-width="1.5"/>
+    <text x="358" y="104" font-size="25" font-weight="600" fill="#E8EDEE">laguna-wire</text>
+    <text x="358" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#6E7D81">guards · spawn · parse</text>
+
+    <!-- box 3: pool exec -->
+    <rect x="712" y="56" width="200" height="120" rx="12" fill="#0E1315" stroke="#1F2A2D" stroke-width="1.5"/>
+    <text x="734" y="104" font-size="25" font-weight="600" fill="#E8EDEE">pool exec</text>
+    <text x="734" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#6E7D81">process group</text>
+
+    <!-- box 4: Laguna S 2.1 -->
+    <rect x="944" y="56" width="200" height="120" rx="12" fill="#0E1315" stroke="#1F2A2D" stroke-width="1.5"/>
+    <text x="966" y="104" font-size="25" font-weight="600" fill="#E8EDEE">Laguna S 2.1</text>
+    <text x="966" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#6E7D81">poolside</text>
+  </g>
+
+  <!-- arrows between boxes (18-unit line + 8-wide triangle, y=116) -->
+  <g>
+    <!-- gap 304→336 -->
+    <line x1="307" x2="325" y1="116" y2="116" stroke="#3A464A" stroke-width="1.5"/>
+    <polygon points="325,111 325,121 333,116" fill="#3A464A"/>
+    <!-- gap 680→712 -->
+    <line x1="683" x2="701" y1="116" y2="116" stroke="#3A464A" stroke-width="1.5"/>
+    <polygon points="701,111 701,121 709,116" fill="#3A464A"/>
+    <!-- gap 912→944 -->
+    <line x1="915" x2="933" y1="116" y2="116" stroke="#3A464A" stroke-width="1.5"/>
+    <polygon points="933,111 933,121 941,116" fill="#3A464A"/>
+  </g>
+
+  <!-- return caption -->
+  <text x="1144" y="204" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#556468" text-anchor="end">← returns  status · exit_code · run_id · files_changed</text>
+
+  <!-- rule -->
+  <line x1="56" x2="1144" y1="224" y2="224" stroke="#182023" stroke-width="1.5"/>
+
+  <!-- heading -->
+  <text x="56" y="262" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" letter-spacing="2" fill="#6E7D81">RUNTIME GUARDS — RE-CHECKED EVERY CALL, SELF-TESTED AT BOOT</text>
+
+  <!-- guard chips -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+    <!-- row 1 (y=282) -->
+    <rect x="56" y="282" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="74" y="316" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV1</text>
+    <text x="132" y="316" font-size="20" fill="#C4CFD1">pool binary resolvable</text>
+
+    <rect x="428" y="282" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="446" y="316" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV3</text>
+    <text x="504" y="316" font-size="20" fill="#C4CFD1">cwd inside allow-root</text>
+
+    <rect x="800" y="282" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="818" y="316" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV4</text>
+    <text x="876" y="316" font-size="20" fill="#C4CFD1">model id allowlisted</text>
+
+    <!-- row 2 (y=344) -->
+    <rect x="56" y="344" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="74" y="378" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV5</text>
+    <text x="132" y="378" font-size="20" fill="#C4CFD1">prompt non-empty, capped</text>
+
+    <rect x="428" y="344" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="446" y="378" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV6</text>
+    <text x="504" y="378" font-size="20" fill="#C4CFD1">timeout, then SIGKILL</text>
+
+    <rect x="800" y="344" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="818" y="378" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV7</text>
+    <text x="876" y="378" font-size="20" fill="#C4CFD1">output captured, capped</text>
+
+    <!-- row 3 (y=406): INV9 at col 1, col 2 skipped, col 3 = self-test text (no chip box) -->
+    <rect x="56" y="406" width="344" height="54" rx="9" fill="#0C1214" stroke="#1B2427" stroke-width="1.5"/>
+    <text x="74" y="440" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="19" fill="#4FD1C5">INV9</text>
+    <text x="132" y="440" font-size="20" fill="#C4CFD1">one run per directory</text>
+
+    <text x="812" y="430" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#556468">self-test fails →</text>
+    <text x="812" y="452" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#556468">server refuses to start</text>
+  </g>
+</svg>
